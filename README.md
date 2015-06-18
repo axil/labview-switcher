@@ -1,4 +1,4 @@
-# python-alttab
+# labview-switcher
 
 In Labview it is difficult to switch out of Labview documents to for example a browser 
 when many vi files are open, because it breaks standard Alt-Tab sequence.
@@ -14,5 +14,8 @@ using one keypress (Alt-` by default).
 
 ## Usage
 
-Press Alt-` (Alt-backtick) to switch to the previous window.
+Press Alt-` (Alt-backtick) to switch to the previous window:
+  - previous non-labview window if we are in labview or
+  - just any previous window if we are not.
 
+To unload the script, use the green tray icon with the letter 'H'.

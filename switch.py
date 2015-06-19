@@ -31,17 +31,17 @@ def foreach_window(hwnd, lParam):
         
         if (title, cls) in (('Start', 'Button'), ('', 'Shell_TrayWnd')) or \
            cls == 'TeamViewer_TitleBarButtonClass':
-            pass
+            return True
+        
+        if we_are_in_labview is None:
+            we_are_in_labview = cls.startswith('LV')
         else:
-            if we_are_in_labview is None:
-                we_are_in_labview = cls.startswith('LV')
-            else:
-                if we_are_in_labview and cls.startswith('LV'):
-                    pass
-                else:
-                    SwitchToThisWindow(hwnd, True)
-                    return False
+            if we_are_in_labview and cls.startswith('LV'):
+                return True
+
+            SwitchToThisWindow(hwnd, True)
+            return False
     return True
 
 EnumWindows(EnumWindowsProc(foreach_window), 0)
- 
+

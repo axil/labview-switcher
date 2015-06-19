@@ -9,7 +9,6 @@ GetClassName = ctypes.windll.user32.GetClassNameW
 SwitchToThisWindow = ctypes.windll.user32.SwitchToThisWindow
  
 we_are_in_labview = None
-already_switched = False
 
 def get_title(hwnd):
     length = GetWindowTextLength(hwnd)
@@ -23,31 +22,25 @@ def get_cls(hwnd):
     return buff.value
 
 def foreach_window(hwnd, lParam):
-    global we_are_in_labview, already_switched
+    global we_are_in_labview
 
     title, cls = get_title(hwnd), get_cls(hwnd)
     
     if IsWindowVisible(hwnd):
         title, cls = get_title(hwnd), get_cls(hwnd)
         
-        if already_switched:
-            return True
-
-        if (title, cls) in (('Start', 'Button'), ('', 'Shell_TrayWnd')):
-            return True
-
-        if cls == 'TeamViewer_TitleBarButtonClass':
-            return True
-
-        if we_are_in_labview is None:
-            we_are_in_labview = cls.startswith('LV')
+        if (title, cls) in (('Start', 'Button'), ('', 'Shell_TrayWnd')) or \
+           cls == 'TeamViewer_TitleBarButtonClass':
+            pass
         else:
-            if we_are_in_labview and cls.startswith('LV'):
-                return True
-
-            SwitchToThisWindow(hwnd, True)
-            already_switched = True
-            return True
+            if we_are_in_labview is None:
+                we_are_in_labview = cls.startswith('LV')
+            else:
+                if we_are_in_labview and cls.startswith('LV'):
+                    pass
+                else:
+                    SwitchToThisWindow(hwnd, True)
+                    return False
     return True
 
 EnumWindows(EnumWindowsProc(foreach_window), 0)

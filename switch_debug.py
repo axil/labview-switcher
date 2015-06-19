@@ -58,7 +58,7 @@ def foreach_window(hwnd, lParam):
                 already_switched = True
                 return True
         return True
-    except Exception, e:
+    except Exception:
         from traceback import format_exc
         open('d:/4.txt', 'a').write(format_exc())
 

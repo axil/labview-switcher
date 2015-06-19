@@ -1,10 +1,12 @@
 # labview-switcher
 
-In Labview it is difficult to switch out of Labview documents to for example a browser 
-when many vi files are open, because it breaks standard Alt-Tab sequence.
+In LabView it is difficult to switch using Alt-Tab from a vi to, for example, a browser 
+when many vi files are open, because LabView breaks standard Alt-Tab behaviour.
 
-This script lets you switch to the browser (ie Most Recently Used non-labview window) 
-using one keypress (Alt-` by default).
+It takes about 2n-1 keypresses where n is the number of vis open.
+
+With this script you can switch between the active vi and the browser (ie Most Recently 
+Used non-labview window) using one keypress (Alt-` by default).
 
 ## Installation
 
